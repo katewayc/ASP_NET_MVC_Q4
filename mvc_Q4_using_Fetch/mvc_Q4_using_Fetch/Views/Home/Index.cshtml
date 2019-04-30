@@ -27,6 +27,15 @@
             dropdown.add(defaultOption);
             dropdown.selectedIndex = 0;
 
+            let dropdown_sub = document.getElementById('sltSubDpmt');
+            dropdown_sub.length = 0;
+
+            let defaultOption_sub = document.createElement('option');
+            defaultOption_sub.text = 'Choose SubDepartment';
+
+            dropdown_sub.add(defaultOption_sub);
+            dropdown_sub.selectedIndex = 0;
+
 
             const url = "http://localhost:54321/Home/GetDepartment";
 
