@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "dropdown list - using fetch";
+}
+
+<div>
+    <br />    <br />
+    <select id="sltDpmt"></select>
+    <br />    <br />
+    <select id="sltSubDpmt"></select>
+    <br />  <br />
+    <button id="btnSend" onclick="sendResult()">送出</button>
+    <br /><br />
+    <span id="result"></span>
+</div>
+
+@section scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch"></script>
+    <script>
+        $(document).ready(function () {
+
+            let dropdown = document.getElementById('sltDpmt');
+            dropdown.length = 0;
+
+            let defaultOption = document.createElement('option');
+            defaultOption.text = 'Choose Department';
+
+            dropdown.add(defaultOption);
+            dropdown.selectedIndex = 0;
+
+
+            const url = "http://localhost:54321/Home/GetDepartment";
+
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            console.warn('Looks like there was a problem. Status Code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        response.json().then(function (data) {
+                            data = JSON.parse(data);
+                            let option;
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].Name;
+                                option.value = data[i].Id;
+                                dropdown.add(option);
+                            }
+                        });
+                    }
+                )
+                .catch(function (err) {
+                    console.error('Fetch Error -', err);
+                });
+        });
+
+        $(document).on('change', '#sltDpmt', function () {
+
+            $("#result").text("");
+
+            let dropdown_sub = document.getElementById('sltSubDpmt');
+            dropdown_sub.length = 0;
+
+            let defaultOption_sub = document.createElement('option');
+            defaultOption_sub.text = 'Choose SubDepartment';
+
+            dropdown_sub.add(defaultOption_sub);
+            dropdown_sub.selectedIndex = 0;
+
+
+            var dpmt_id = $(this).val();
+            var parsed = parseInt(dpmt_id)
+            if (Number.isNaN(parsed) || parsed == "" || parsed === null) { } else {
+                const url_sub = "http://localhost:54321/Home/GetSubDepartment";
+
+                fetch(url_sub, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Id: dpmt_id })
+                })
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                            console.warn('Looks like there was a problem. Status Code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        response.json().then(function (data) {
+                            data = JSON.parse(data);
+                            let option;
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].Name;
+                                option.value = data[i].Id;
+                                dropdown_sub.add(option);
+                            }
+                        });
+                    }
+                    )
+                    .catch(function (err) {
+                        console.error('Fetch Error -', err);
+                    });
+            }
+        });
+
+        function sendResult() {
+
+            $("#result").text("");
+
+            var a = $("#sltDpmt option:selected").val();
+            var b = $("#sltSubDpmt option:selected").val();
+
+            if (a == 'Choose Department' || b == 'Choose SubDepartment')
+            {
+                alert('please choose all of them');
+                return;
+            }
+
+            var x = $("#sltDpmt option:selected").text();
+            var y = $("#sltSubDpmt option:selected").text();
+
+            $("#result").text("部門: " + x + " -  子部門: " + y);
+        }
+
+        $("#sltSubDpmt").change(function () {
+            $("#result").text("");
+        });
+
+    </script>
+}
