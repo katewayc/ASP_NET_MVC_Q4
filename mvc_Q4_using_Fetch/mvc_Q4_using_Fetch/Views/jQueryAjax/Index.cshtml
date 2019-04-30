@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "dropdown list - using jQuery Ajax";
+}
+
+<div>
+    <br />    <br />
+    <select id="sltDpmt"></select>
+    <br />    <br />
+    <select id="sltSubDpmt"></select>
+    <br />  <br />
+    <button id="btnSend" onclick="sendResult()">送出</button>
+    <br /><br />
+    <span id="result"></span>
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            getDpmt();
+            $('#sltDpmt').change(function () { changeSubDpmt(); });
+        });
+
+        function getDpmt() {
+            var dpmtUrl = '/jQueryAjax/GetDepartment';
+            $.ajax({
+                url: dpmtUrl,
+                type: 'post',
+                cache: false,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.length > 0) {
+                        $('#sltDpmt').empty();
+                        $('#sltDpmt').append($('<option></option>').val('').text('please choose department'));
+                        $.each(data, function (i, item) {
+                            $('#sltDpmt').append($('<option></option>').val(item.Id).text(item.Name));
+                        });
+                    }
+                }
+            });
+        }
+
+        function changeSubDpmt() {
+            var dpmtId = $("#sltDpmt option:selected").val();
+            getSubDpmt(dpmtId);
+        }
+
+        function getSubDpmt(dpmtId) {
+            var dpmtUrl = '/jQueryAjax/GetSubDepartment';
+            $.ajax({
+                url: dpmtUrl,
+                data: { Id: dpmtId },
+                type: 'post',
+                cache: false,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.length > 0) {
+                        $('#sltSubDpmt').empty();
+                        $('#sltSubDpmt').append($('<option></option>').val('').text('please choose sub-department'));
+                        $.each(data, function (i, item) {
+                            $('#sltSubDpmt').append($('<option></option>').val(item.Id).text(item.Name));
+                        });
+                    }
+                }
+            });
+        }
+
+    </script>
+}
