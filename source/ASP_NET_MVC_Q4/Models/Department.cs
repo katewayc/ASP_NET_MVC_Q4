@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace mvc_Q4_using_Fetch.Models
+namespace ASP_NET_MVC_Q4.Models
 {
     public class Department
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<Department> departments { get; set; }
+        //public List<Department> DepartmentList { get; set; }
     }
 
-    public class SubDepartment
+    public class Subdepartment
     {
         public int ParentId { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<SubDepartment> subDepartments { get; set; }
+        //public List<Subdepartment > SubdepartmentList { get; set; }
     }
 }

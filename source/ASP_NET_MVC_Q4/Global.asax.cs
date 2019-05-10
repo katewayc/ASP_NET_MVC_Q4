@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace mvc_Q4_using_Fetch
+namespace ASP_NET_MVC_Q4
 {
     public class MvcApplication : System.Web.HttpApplication
     {

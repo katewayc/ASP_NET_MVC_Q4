@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace mvc_Q4_using_Fetch
+namespace ASP_NET_MVC_Q4
 {
     public class RouteConfig
     {
@@ -15,8 +15,8 @@ namespace mvc_Q4_using_Fetch
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Fetch", action = "Index" }
             );
         }
     }

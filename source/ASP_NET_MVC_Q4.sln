@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvc_Q4_using_Fetch", "mvc_Q4_using_Fetch\mvc_Q4_using_Fetch.csproj", "{F65C65DC-0447-471C-985B-3E7E4B08938C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP_NET_MVC_Q4", "ASP_NET_MVC_Q4\ASP_NET_MVC_Q4.csproj", "{F65C65DC-0447-471C-985B-3E7E4B08938C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

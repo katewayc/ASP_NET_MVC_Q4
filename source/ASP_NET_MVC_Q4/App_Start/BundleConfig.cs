@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace mvc_Q4_using_Fetch
+namespace ASP_NET_MVC_Q4
 {
     public class BundleConfig
     {

@@ -23,7 +23,7 @@
         });
 
         function getDpmt() {
-            var dpmtUrl = '/jQueryAjax/GetDepartment';
+            var dpmtUrl = '/JQueryAjax/GetDepartment';
             $.ajax({
                 url: dpmtUrl,
                 type: 'post',
@@ -34,7 +34,7 @@
                     data = JSON.parse(data);
                     if (data.length > 0) {
                         $('#sltDpmt').empty();
-                        $('#sltDpmt').append($('<option></option>').val('').text('please choose department'));
+                        $('#sltDpmt').append($('<option></option>').val('').text('Choose Department'));
                         $.each(data, function (i, item) {
                             $('#sltDpmt').append($('<option></option>').val(item.Id).text(item.Name));
                         });
@@ -49,10 +49,10 @@
         }
 
         function getSubDpmt(dpmtId) {
-            var dpmtUrl = '/jQueryAjax/GetSubDepartment';
+            var dpmtUrl = '/JQueryAjax/GetSubdepartment';
             $.ajax({
                 url: dpmtUrl,
-                data: { Id: dpmtId },
+                data: { parentId: dpmtId },
                 type: 'post',
                 cache: false,
                 async: false,
@@ -61,7 +61,7 @@
                     data = JSON.parse(data);
                     if (data.length > 0) {
                         $('#sltSubDpmt').empty();
-                        $('#sltSubDpmt').append($('<option></option>').val('').text('please choose sub-department'));
+                        $('#sltSubDpmt').append($('<option></option>').val('').text('Choose Subdepartment'));
                         $.each(data, function (i, item) {
                             $('#sltSubDpmt').append($('<option></option>').val(item.Id).text(item.Name));
                         });
@@ -70,5 +70,26 @@
             });
         }
 
+        function sendResult() {
+
+            $("#result").text("");
+
+            var a = $("#sltDpmt option:selected").val();
+            var b = $("#sltSubDpmt option:selected").val();
+
+            if (a == '' || b == '') {
+                alert('please choose all of them');
+                return;
+            }
+
+            var x = $("#sltDpmt option:selected").text();
+            var y = $("#sltSubDpmt option:selected").text();
+
+            $("#result").text("部門: " + x + " -  子部門: " + y);
+        }
+
+        $("#sltSubDpmt").change(function () {
+            $("#result").text("");
+        });
     </script>
 }
