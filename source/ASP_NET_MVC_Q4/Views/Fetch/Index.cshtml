@@ -36,8 +36,7 @@
             dropdown_sub.add(defaultOption_sub);
             dropdown_sub.selectedIndex = 0;
 
-
-            const url = "http://localhost:54321/Fetch/GetDepartment";
+            const url = "/Fetch/GetDepartment";
 
             fetch(url)
                 .then(
@@ -82,7 +81,7 @@
             var dpmt_id = $(this).val();
             var parsed = parseInt(dpmt_id)
             if (Number.isNaN(parsed) || parsed == "" || parsed === null) { } else {
-                const url_sub = "http://localhost:54321/Fetch/GetSubdepartment";
+                const url_sub = "/Fetch/GetSubdepartment";
 
                 fetch(url_sub, {
                     method: 'POST',
